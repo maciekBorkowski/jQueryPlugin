@@ -1,7 +1,12 @@
 (function($) {
 
 	$.fn.regexTest = function(options) {
-		var pattern = new RegExp(options.pattern);
+		if(typeof(options) !== 'undefined' && typeof(options.pattern) !== 'undefined'){
+			pattern = new RegExp(options.pattern);
+		} else {
+			console.log("Podaj wyrażenie regularne");
+			return;
+		}
 		this.each(function() {
 			if(!pattern.test(this.value)) {
 				$(this).addClass('error');
@@ -19,11 +24,26 @@
 		if(typeof(options) !== 'undefined' && typeof(options.pattern) !== 'undefined'){
 			pattern = new RegExp(options.pattern);
 		} else {
-			pattern = new RegExp("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$");
+			pattern = new RegExp("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$");
 		}
 		this.each(function() {
 			if(!pattern.test(this.value)) {
 				$(this).addClass('error');
+			} else {
+				if($(this).hasClass('error')){
+					$(this).removeClass('error');
+				}
+			}
+		});
+		return this;
+	};
+
+	$.fn.checkNames = function(options) {
+		var pattern;
+		pattern = new RegExp("^[A-ZĄĆĘŁŃÓŚŹŻ]{1}[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłóńśźż]*$");
+		this.each(function() {
+			if(!pattern.test($(this).val()) || $(this).val().length === 0) {
+					$(this).addClass('error');
 			} else {
 				if($(this).hasClass('error')){
 					$(this).removeClass('error');

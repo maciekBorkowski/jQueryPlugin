@@ -5,8 +5,10 @@ $(document).ready(function (){
 	});
 
 	function validateForm() {
-		$(".regex").regexTest({pattern: /^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłóńśźż]*$/});
-		$("#email").checkEmail({pattern: /^a$/}).addClass('test');
+		$(".names").checkNames().addClass('test');
+		$("#nick").regexTest({pattern: "^[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłóńśźż]{1}[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłóńśźż]*$"});
+		$("#email").checkEmail().addClass('test');
+		// {pattern: /^a$/}
 	}
 		
 });
